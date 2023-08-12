@@ -10,7 +10,7 @@ parameters:
     community.blacklist: []
     instance.whitelist: 
         - group.lt 
-    community.whitelist: []
+    community.whitelist: 
         - raw@group.lt
         - war@group.lt
         - work@group.lt
