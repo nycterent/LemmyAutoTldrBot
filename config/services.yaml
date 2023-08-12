@@ -5,23 +5,13 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     app.summary_paragraphs: 6
-    lemmy.instance: lemmings.world
-    instance.blacklist:
-        - lemmy.world
+    lemmy.instance: group.lt
+    instance.blacklist: []
     community.blacklist: []
-    instance.whitelist: []
-    community.whitelist:
-        - technology@lemmy.world
-        - world@lemmy.world
-        - globalpolitics@lemmy.world
-        - fediverse@lemmy.world
-        - dfw@lemmy.world
-        - politics@lemmy.world
-        - coloradopolitics@lemmy.world
-        - archaeology@lemmy.world
-        - texas@lemmy.world
-    instance.condensed:
-        - beehaw.org
+    instance.whitelist: 
+        - group.lt 
+    community.whitelist: []
+    instance.condensed: []
     community.condensed: []
 
 services:
