@@ -11,6 +11,9 @@ parameters:
     instance.whitelist: 
         - group.lt 
     community.whitelist: []
+        - raw@group.lt
+        - war@group.lt
+        - work@group.lt
     instance.condensed: []
     community.condensed: []
 
