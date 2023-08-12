@@ -28,7 +28,7 @@ jobs:
           yarn global add serverless@3
           yarn install
       - name: Login to ECR
-        run: aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin $(aws sts get-caller-identity --query "Account" --output text).dkr.ecr.$AWS_REGION.amazonaws.com
+        run: aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $(aws sts get-caller-identity --query "Account" --output text).dkr.ecr.$AWS_REGION.amazonaws.com
       - name: Pull latest image
         run: |
           docker pull $(aws sts get-caller-identity --query "Account" --output text).dkr.ecr.$AWS_REGION.amazonaws.com/serverless-lemmyautotldrbot-prod:auto_tldr
