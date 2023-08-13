@@ -14,6 +14,8 @@ parameters:
         - raw@group.lt
         - war@group.lt
         - work@group.lt
+        - books@group.lt
+        - bofh@group.lt
     instance.condensed: []
     community.condensed: []
 
