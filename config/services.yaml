@@ -16,6 +16,11 @@ parameters:
         - work@group.lt
         - books@group.lt
         - bofh@group.lt
+        - saugumas@group.lt
+        - main@group.lt
+        - bpf@group.lt
+        - magick@group.lt
+        - nubodumas@group.lt
     instance.condensed: []
     community.condensed: []
 
