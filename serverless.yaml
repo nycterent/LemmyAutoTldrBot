@@ -34,6 +34,9 @@ provider:
     DYNAMODB_WHITELIST_BLACKLIST_TABLE_TYPE_INDEX: ${self:custom.TypeIndexName}
     LEMMY_PASSWORD: ${env:LEMMY_PASSWORD}
     LEMMY_USER: ${env:LEMMY_USER}
+    LEMMY_MAINTAINER: ${env:LEMMY_MAINTAINER}
+    SOURCE_CODE_LINK: ${env:SOURCE_CODE_LINK}
+    BOT_MODE: ${env:BOT_MODE}
 
 plugins:
   - serverless-plugin-log-retention
