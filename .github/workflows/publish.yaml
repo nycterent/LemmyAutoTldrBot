@@ -15,6 +15,9 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       LEMMY_PASSWORD: ${{ secrets.LEMMY_PASSWORD }}
       LEMMY_USER: ${{ secrets.LEMMY_USER }}
+      SOURCE_CODE_LINK: ${{ secrets.SOURCE_CODE_LINK }}
+      BOT_MODE: ${{ secrets.BOT_MODE }}
+      LEMMY_MAINTAINER: ${{ secrets.LEMMY_MAINTAINER }}
       AWS_REGION: eu-north-1
     steps:
       - name: Setup PHP
