@@ -36,6 +36,8 @@ final class ReplyToPostsCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        error_log('Running command to handle posts');
+
         $lastHandledIdCache = $this->cache->getItem('lastHandled');
         if ($lastHandledIdCache->isHit()) {
             $lastHandledId = $lastHandledIdCache->get();
@@ -45,39 +47,47 @@ final class ReplyToPostsCommand extends Command
         assert(is_int($lastHandledId));
         $storedLastHandledId = $lastHandledId;
 
+        error_log("Last previous handled post ID: {$storedLastHandledId}");
+
         $posts = $this->postService->getPosts($lastHandledId);
 
+        $i = 1;
         foreach ($posts as $post) {
-            if ($post->post->id <= $storedLastHandledId) {
-                break;
-            }
-
-            if ($post->post->id > $lastHandledId) {
-                $lastHandledId = $post->post->id;
-            }
-
-            if (!$post->post->url) {
-                continue;
-            }
-
-            if (!$this->permissionChecker->canPostToCommunity($post->community)) {
-                continue;
-            }
-
             try {
+                error_log("Handling post #{$i} (id: {$post->post->id})");
+                if ($post->post->id <= $storedLastHandledId) {
+                    error_log('The post has lower ID than the from previous runs, not handling it');
+                    break;
+                }
+
+                if ($post->post->id > $lastHandledId) {
+                    $lastHandledId = $post->post->id;
+                }
+
+                if (!$post->post->url) {
+                    error_log("Post doesn't contain a link, skipping");
+                    continue;
+                }
+
+                if (!$this->permissionChecker->canPostToCommunity($post->community)) {
+                    error_log('Cannot post to the community, skipping');
+                    continue;
+                }
+
                 $text = $this->siteHandler->getContent($post->post->url);
                 if (!$text) {
-                    error_log("Failed reading text for {$post->post->url}");
+                    error_log("Failed reading text for {$post->post->url}, skipping");
                     continue;
                 }
                 $summary = $this->summaryProvider->getSummary($text, $this->summaryParagraphs);
                 if (!$summary) {
-                    error_log("Failed generating summary for {$post->post->url}");
+                    error_log("Failed generating summary for {$post->post->url}, skipping");
                     continue;
                 }
 
                 $response = $this->summaryTextWrapper->getResponseText($post->community, $summary);
                 if ($response === null) {
+                    error_log('Failed generating wrapped summary, skipping');
                     continue;
                 }
 
@@ -97,8 +107,10 @@ final class ReplyToPostsCommand extends Command
                     error_log("Replying to '{$this->instance}/post/{$post->post->id}' using model '{$this->summaryProvider->getId()}'");
                 }
             } catch (ContentFetchingFailedException|LanguageNotAllowedException) {
+                error_log('Got an exception, skipping');
                 continue;
             } finally {
+                error_log("Done handling post #{$i}");
                 $lastHandledIdCache->set($lastHandledId);
                 $this->cache->save($lastHandledIdCache);
             }
