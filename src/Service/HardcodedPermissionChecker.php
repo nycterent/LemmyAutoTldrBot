@@ -39,7 +39,7 @@ final readonly class HardcodedPermissionChecker implements PermissionChecker
             return false;
         }
 
-        return true;
+        return false;
     }
 
     private function getInstance(Community $community): string
