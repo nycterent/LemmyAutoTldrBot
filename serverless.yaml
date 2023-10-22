@@ -37,6 +37,7 @@ provider:
     LEMMY_MAINTAINER: ${env:LEMMY_MAINTAINER}
     SOURCE_CODE_LINK: ${env:SOURCE_CODE_LINK}
     BOT_MODE: ${env:BOT_MODE}
+    SUPPORT_COMMUNITY: this@group.lt
 
 plugins:
   - serverless-plugin-log-retention
