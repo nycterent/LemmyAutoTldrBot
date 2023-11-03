@@ -1,4 +1,4 @@
-FROM ghcr.io/rikudousage/lemmy-auto-tldr-bot:base
+FROM ghcr.io/nycterent/lemmy-auto-tldr-bot:base
 
 COPY . /var/task
 WORKDIR /var/task
