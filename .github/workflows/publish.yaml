@@ -80,7 +80,5 @@ jobs:
         run: |
           docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker pull public.ecr.aws/lambda/provided:al2
-      - name: Login to ECR
-        run: aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin $(aws sts get-caller-identity --query "Account" --output text).dkr.ecr.$AWS_REGION.amazonaws.com
       - name: Deploy app
         run: serverless deploy --stage prod --verbose --region $AWS_REGION
